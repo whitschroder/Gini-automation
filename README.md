@@ -42,3 +42,9 @@ The "box" folder shows the same data in a box plot:
 The "confidencebox" folder summarizes the corrected Gini coefficients with the lower and upper confidence values:
 
 <img src="giniplots/confidencebox/cibox11449.jpg" width="75%">
+
+The "fplot" folder represents the acceleration of "Metric" from adjacent values (narrow method) or every other value (wide method). Adrian Chase has suggested that such plots can aid in the interpretation of the shape of the Lorenz curve:
+
+<img src="giniplots/fplot/fnarrow11449.jpg" width="75%">
+
+<img src="giniplots/fplot/fwide11449.jpg" width="75%">
