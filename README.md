@@ -12,9 +12,9 @@ This R code automates the calculation of Gini coefficients and summary statistic
 | 11445 | 211.2993753 |
 | 11445 | 99.88499478 |
 
-Name is any string that identifies how data will be grouped; for example, the name of an individual, a place, an archaeological site, a neighborhood, etc; or in this case the unique identifier for a NASA G-LiHT tile (https://doi.org/10.1016/j.jasrep.2020.102543). Metric represents the individual datapoints across the Name field, for example, income, structure size, etc. Metric does not need to in ascending order, the Gini function will automatically order this column.
+"Name" is any string that identifies how data will be grouped; for example, the name of an individual, a place, an archaeological site, a neighborhood, etc; or in this case the unique identifier for a NASA G-LiHT tile (https://doi.org/10.1016/j.jasrep.2020.102543). "Metric" represents the individual datapoints across the "Name" field, for example, income, structure size, etc. Metric does not need to be in ascending order, the Gini function will automatically order this column.
 
-Lines 1-59 will calculate the summary statistics and output to a .csv file "ginibyname.csv" to the working directory.
+Lines 1-59 will calculate the summary statistics and output to a .csv file "ginibyname.csv" to the working directory. Statistics will not be calculated for "Name" groups with sample sizes under 10, although this value can be adjusted in the code.
 
 | Name  | Gini | Corrected Gini | Sample Size | Mean   | Range   | Std Deviation | ... | Lower Gini | Higher Gini |
 | ----- | ---- | -------------- | ----------- | ------ | ------- | ------------- | --- | ---------- | ----------- |
@@ -25,7 +25,7 @@ Lines 1-59 will calculate the summary statistics and output to a .csv file "gini
 | 11458 | 0.29 | 0.31           | 15          | 47.96  | 106.84  | 27.99         | ... | 0.23       | 0.42        |
 | 11459 | 0.41 | 0.43           | 35          | 71.39  | 420.04  | 86.97         | ... | 0.23       | 0.56        |
 
-Beginning with line 63, the code will create a giniplots folder in the working directory and loop through each group in the Name field to generate publication quality charts summarizing the Gini data. These charts are based on a spreadsheet by Adrian Chase.
+Beginning with line 63, the code will create a "giniplots" folder in the working directory and loop through each group in the "Name" field to generate publication quality charts summarizing the Gini data. These charts are based on similar outputs from a spreadsheet by Adrian Chase.
 
 The lorenz folder contains Lorenz curves for each "Name" group:
 
