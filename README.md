@@ -34,3 +34,5 @@ The "lorenz" folder contains Lorenz curves for each "Name" group:
 The "univariate" folder contains line plots of each group's individual datapoints in ascending order:
 
 <img src="giniplots/univariate/univariate11449.jpg" width="75%">
+
+The "box" folder shows the same data in a box plot:
