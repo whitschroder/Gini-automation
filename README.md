@@ -27,6 +27,10 @@ Lines 1-59 will calculate the summary statistics and output to a .csv file "gini
 
 Beginning with line 63, the code will create a "giniplots" folder in the working directory and loop through each group in the "Name" field to generate publication quality charts summarizing the Gini data. These charts are based on similar outputs from a spreadsheet by Adrian Chase.
 
-The lorenz folder contains Lorenz curves for each "Name" group:
+The "lorenz" folder contains Lorenz curves for each "Name" group:
 
 <img src="giniplots/lorenz/lorenz11449.jpg" width="50%">
+
+The "univariate" folder contains line plots of each group's individual datapoints in ascending order:
+
+
