@@ -12,7 +12,7 @@ This R code automates the calculation of Gini coefficients and summary statistic
 | 11445 | 211.2993753 |
 | 11445 | 99.88499478 |
 
-"Name" is any string that identifies how data will be grouped; for example, the name of an individual, a place, an archaeological site, a neighborhood, etc; or in this case the unique identifier for a NASA G-LiHT tile (https://doi.org/10.1016/j.jasrep.2020.102543). "Metric" represents the individual datapoints across the "Name" field, for example, income, structure size, etc. Metric does not need to be in ascending order, the Gini function will automatically order this column.
+"Name" is any string that identifies how data will be grouped; for example, the name of an individual, a place, an archaeological site, a neighborhood, etc; or in this case the unique identifier for a NASA G-LiHT tile (https://doi.org/10.1016/j.jasrep.2020.102543), shown in the map below. "Metric" represents the individual datapoints across the "Name" field, for example, income, structure size, etc. Metric does not need to be in ascending order, the Gini function will automatically order this column.
 
 <img src="Figure 1.jpg" width="75%">
 
