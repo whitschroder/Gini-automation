@@ -1,14 +1,18 @@
-### Load packages, use install.packages("") if not installed
+### Load packages
 
-library(EnvStats)
+if(!require("tidyverse")) install.packages("tidyverse")
+if(!require("DescTools")) install.packages("DescTools")
+if(!require("ggplot2")) install.packages("ggplot2")
+if(!require("gglorenz")) install.packages("gglorenz")
+
 library(DescTools)
 library(tidyverse)
 library(ggplot2)
 library(gglorenz)
 
-### Import data (update your folder path between quotes, change backslashes to forward slashes)
+### Import data from working directory (or update folder path between quotes, change backslashes to forward slashes)
 
-df <- read.csv(file = "C:/SampleData.csv")
+df <- read.csv(file = "SampleData.csv")
 
 ### Calculate Gini coefficients and related statistics from dataset
 
@@ -40,38 +44,39 @@ stats <- dffilter %>%
 #calculate corrected Gini and confidence intervals, mutate to columns, and format as single data frame
 
 Ginistats <- do.call(data.frame, dffilter %>%
-  group_by(Name) %>%
-  summarize(across(Metric, ~as.data.frame(do.call(rbind, list(Gini(.x, conf.level = .95, R = 1000, 
-                                              type = "bca", na.rm = TRUE)))), .names = "{fn}")))
-
-#rename columns
-
-Ginistats <- Ginistats %>%
+                       group_by(Name) %>%
+                       summarize(across(Metric, ~as.data.frame(do.call(rbind, list(Gini(
+                         .x, conf.level = .95, R = max(1000, n()), type = "bca", na.rm = TRUE)))), .names = "{fn}"))) %>%
   rename("Corrected Gini" = "X1.gini", "Lower Gini" = "X1.lwr.ci", "Higher Gini" = X1.upr.ci)
 
 #merge summary and Gini statistics and relocate column
 
-ginibyname <- merge(stats, Ginistats, by = "Name")
-
-ginibyname <- ginitable %>% relocate("Corrected Gini", .after = Gini)
+ginibyname <- merge(stats, Ginistats, by = "Name") %>%
+  relocate("Corrected Gini", .after = Gini)
 
 ### Save summarized data as a csv to working directory and delete intermediate data (do not delete dffilter)
 
 write.csv(ginibyname, file = 'ginibyname.csv', row.names=FALSE)
 
-rm(stats, Ginistats) 
+rm(stats) 
 
 ### Create plots
 
 # create folders for plots in working directory
 
 mainDir <- getwd()
-uniDir <- "univariate"
-fDir <- "fplot"
-lDir <- "lorenz"
+plotDir <- "giniplots"
+uniDir <- "giniplots/univariate"
+boxDir <- "giniplots/box"
+fDir <- "giniplots/fplot"
+lDir <- "giniplots/lorenz"
+ciDir <- "giniplots/confidencebox"
+dir.create(file.path(mainDir, plotDir), showWarnings = TRUE)
 dir.create(file.path(mainDir, uniDir), showWarnings = TRUE)
+dir.create(file.path(mainDir, boxDir), showWarnings = TRUE)
 dir.create(file.path(mainDir, fDir), showWarnings = TRUE)
 dir.create(file.path(mainDir, lDir), showWarnings = TRUE)
+dir.create(file.path(mainDir, ciDir), showWarnings = TRUE)
 
 ### Loop to generate plots
 
@@ -99,29 +104,35 @@ for (i in unique(dffilter$Name)){
   dfsub[is.na(dfsub)] <- 0
   p <- ggplot(data=dfsub, aes(x=as.numeric(row.names(dfsub)))) + geom_hline(yintercept=0, color="darkgray") + 
     geom_vline(xintercept=0, color="darkgray") + 
-    geom_line(aes(y = `Metric`), color ="black", size = 1) + 
+    geom_line(aes(y = `Metric`), color ="black", linewidth = 1) + 
     geom_point(aes(y = `Metric`), color = "black") + ggtitle(paste("Univariate plot of", as.character(dfsub$Name[1]))) + theme(plot.title = element_text(color = "black", size = 14)) + xlab("Individual Datapoints")
-  f <- paste0('univariate/', 'univariate', i, '.tiff')
+  f <- paste0('giniplots/univariate/', 'univariate', i, '.tiff')
+  tiff(f, units="in", width=6.5, height=6.5, res=300)
+  print(p)
+  dev.off()
+  p <- ggplot(data=dfsub, aes(x=Metric)) + geom_boxplot() + ylim(-1,1) + theme(axis.text.y=element_blank(), 
+    axis.ticks.y=element_blank()) + ggtitle(paste("Univariate Box Plot of ", as.character(dfsub$Name[1]), " (n=", as.character(nrow(dfsub)), ")", sep=""))
+  f <- paste0('giniplots/box/', 'univariatebox', i, '.tiff')
   tiff(f, units="in", width=6.5, height=6.5, res=300)
   print(p)
   dev.off()
   p <- ggplot(data=dfsub, aes(x=as.numeric(row.names(dfsub)))) + geom_hline(yintercept=0, color="darkgray") + 
     geom_vline(xintercept=0, color="darkgray") + 
-    geom_line(aes(y = `fdprimew`), color ="black", size = 1) + 
+    geom_line(aes(y = `fdprimew`), color ="black", linewidth = 1) + 
     geom_point(aes(y = `fdprimew`), color = "black") + ggtitle(paste('f" (wide method) of', as.character(dfsub$Name[1]))) + 
     theme(plot.title = element_text(color = "black", size = 14)) + xlab("Individual Datapoints") + 
     ylab("Acceleration of Metric")
-  f <- paste0('fplot/', 'fwide', i, '.tiff')
+  f <- paste0('giniplots/fplot/', 'fwide', i, '.tiff')
   tiff(f, units="in", width=6.5, height=6.5, res=300)
   print(p)
   dev.off()
   p <- ggplot(data=dfsub, aes(x=as.numeric(row.names(dfsub)))) + geom_hline(yintercept=0, color="darkgray") + 
     geom_vline(xintercept=0, color="darkgray") + 
-    geom_line(aes(y = `fdprimen`), color ="black", size = 1) + 
+    geom_line(aes(y = `fdprimen`), color ="black", linewidth = 1) + 
     geom_point(aes(y = `fdprimen`), color = "black") + ggtitle(paste('f" (narrow method) of', as.character(dfsub$Name[1]))) + 
     theme(plot.title = element_text(color = "black", size = 14)) + xlab("Individual Datapoints") + 
     ylab("Acceleration of Metric")
-  f <- paste0('fplot/', 'fnarrow', i, '.tiff')
+  f <- paste0('giniplots/fplot/', 'fnarrow', i, '.tiff')
   tiff(f, units="in", width=6.5, height=6.5, res=300)
   print(p)
   dev.off()
@@ -140,7 +151,18 @@ for (i in unique(dffilter$Name)){
                                         as.character(ginifilter$`Higher Gini`[1]), "\n n =", 
                                         as.character(ginifilter$`Sample Size`[1])), size=5) + 
     xlab("Cumulative Proportion of Population") + ylab("Cumulative Proportion of Wealth Metric")
-  f <- paste0('lorenz/', 'lorenz', i, '.tiff')
+  f <- paste0('giniplots/lorenz/', 'lorenz', i, '.tiff')
+  tiff(f, units="in", width=6.5, height=6.5, res=300)
+  print(p)
+  dev.off()
+  newGinistats <- pivot_longer(data = Ginistats, cols = c("Corrected Gini", "Lower Gini", "Higher Gini"))
+  ginistatsfilter <- newGinistats %>%
+    filter(Name == i)
+  p <- ggplot(data=ginistatsfilter, aes(x=value)) + geom_boxplot() + ylim(-1,1) + 
+    theme(axis.text.y=element_blank(), axis.ticks.y=element_blank()) + 
+    ggtitle(paste("95% Confidence Interval of ", as.character(ginistatsfilter$Name[1]), sep="")) + 
+    xlab("Gini Coefficient") + xlim(0, 1)
+  f <- paste0('giniplots/confidencebox/', 'cibox', i, '.tiff')
   tiff(f, units="in", width=6.5, height=6.5, res=300)
   print(p)
   dev.off()
