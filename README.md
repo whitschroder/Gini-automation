@@ -20,4 +20,4 @@ Beginning with line 63, the code will create a giniplots folder in the working d
 
 The lorenz folder contains Lorenz curves for each "Name" group:
 
-<img src='giniplots/lorenz/11449.tiff' width="200"/>
+<img src='giniplots/lorenz/11449.tiff' width="100"/>
