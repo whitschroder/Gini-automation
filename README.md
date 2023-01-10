@@ -13,3 +13,5 @@ This R code automates the calculation of Gini coefficients and summary statistic
 | 11445 | 99.88499478 |
 
 Name is any string that identifies how data will be grouped; for example, the name of an individual, a place, an archaeological site, a neighborhood, etc; or in this case the unique identifier for a NASA G-LiHT tile (https://doi.org/10.1016/j.jasrep.2020.102543). Metric represents the individual datapoints across the Name field, for example, income, structure size, etc. Metric does not need to in ascending order, the Gini function will automatically order this column.
+
+Lines 1-59 will calculate the summary statistics and output to a .csv file "ginibyname.csv" to the working directory.
