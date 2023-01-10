@@ -36,3 +36,5 @@ The "univariate" folder contains line plots of each group's individual datapoint
 <img src="giniplots/univariate/univariate11449.jpg" width="75%">
 
 The "box" folder shows the same data in a box plot:
+
+<img src="giniplots/box/univariatebox11449.jpg" width="75%">
