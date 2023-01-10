@@ -29,8 +29,8 @@ Beginning with line 63, the code will create a "giniplots" folder in the working
 
 The "lorenz" folder contains Lorenz curves for each "Name" group:
 
-<img src="giniplots/lorenz/lorenz11449.jpg" width="50%">
+<img src="giniplots/lorenz/lorenz11449.jpg" width="75%">
 
 The "univariate" folder contains line plots of each group's individual datapoints in ascending order:
 
-<img src="giniplots/univariate/univariate11449.jpg" width="50%">
+<img src="giniplots/univariate/univariate11449.jpg" width="75%">
