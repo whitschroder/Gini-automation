@@ -15,3 +15,9 @@ This R code automates the calculation of Gini coefficients and summary statistic
 Name is any string that identifies how data will be grouped; for example, the name of an individual, a place, an archaeological site, a neighborhood, etc; or in this case the unique identifier for a NASA G-LiHT tile (https://doi.org/10.1016/j.jasrep.2020.102543). Metric represents the individual datapoints across the Name field, for example, income, structure size, etc. Metric does not need to in ascending order, the Gini function will automatically order this column.
 
 Lines 1-59 will calculate the summary statistics and output to a .csv file "ginibyname.csv" to the working directory.
+
+Beginning with line 63, the code will create a giniplots folder in the working directory and loop through each group in the Name field to generate publication quality charts summarizing the Gini data. These charts are based on a spreadsheet by Adrian Chase.
+
+The lorenz folder contains Lorenz curves for each "Name" group:
+
+<img src='giniplots/lorenz/11449.tiff'/>
