@@ -16,6 +16,15 @@ Name is any string that identifies how data will be grouped; for example, the na
 
 Lines 1-59 will calculate the summary statistics and output to a .csv file "ginibyname.csv" to the working directory.
 
+| Name  | Gini | Corrected Gini | Sample Size | Mean   | Range   | Std Deviation | ... | Lower Gini | Higher Gini |
+| ----- | ---- | -------------- | ----------- | ------ | ------- | ------------- | --- | ---------- | ----------- |
+| 11449 | 0.54 | 0.55           | 38          | 129.03 | 1389.32 | 232.70        | ... | 0.35       | 0.69        |
+| 11450 | 0.60 | 0.61           | 67          | 200.73 | 1323.67 | 290.31        | ... | 0.54       | 0.67        |
+| 11456 | 0.52 | 0.57           | 11          | 107.75 | 540.17  | 146.34        | ... | 0.28       | 0.70        |
+| 11457 | 0.38 | 0.38           | 342         | 73.96  | 417.12  | 58.91         | ... | 0.35       | 0.41        |
+| 11458 | 0.29 | 0.31           | 15          | 47.96  | 106.84  | 27.99         | ... | 0.23       | 0.42        |
+| 11459 | 0.41 | 0.43           | 35          | 71.39  | 420.04  | 86.97         | ... | 0.23       | 0.56        |
+
 Beginning with line 63, the code will create a giniplots folder in the working directory and loop through each group in the Name field to generate publication quality charts summarizing the Gini data. These charts are based on a spreadsheet by Adrian Chase.
 
 The lorenz folder contains Lorenz curves for each "Name" group:
