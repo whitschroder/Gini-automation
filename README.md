@@ -38,3 +38,7 @@ The "univariate" folder contains line plots of each group's individual datapoint
 The "box" folder shows the same data in a box plot:
 
 <img src="giniplots/box/univariatebox11449.jpg" width="75%">
+
+The "confidencebox" folder summarizes the corrected Gini coefficients with the lower and upper confidence values:
+
+<img src="giniplots/confidencebox/cibox11449.jpg" width="75%">
