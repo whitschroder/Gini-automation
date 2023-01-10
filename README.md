@@ -48,3 +48,5 @@ The "fplot" folder represents the acceleration of "Metric" from adjacent values 
 <img src="giniplots/fplot/fnarrow11449.jpg" width="75%">
 
 <img src="giniplots/fplot/fwide11449.jpg" width="75%">
+
+R code by Whittaker Schroder and Madeline Brown. Please contact Schroder for any questions.
